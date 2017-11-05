@@ -1,0 +1,34 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "globals":{
+    "_": true,
+    "__dirname": true,
+    "__webpack_public_path__": true,
+    "$": true,
+    "global": true,
+    "module": true,
+    "process": true,
+    "require": true,
+    "React": true,
+    "window": true
+  },
+  "env": {
+    "jest": true
+  },
+  "rules":{
+    "react/prop-types": 0,
+    "react/void-dom-elements-no-children": 0, // Prevents void children error.
+    "react/sort-prop-types": [2, {
+      "ignoreCase": true
+    }],
+    "react/no-array-index-key": 0,
+    "react/jsx-no-bind": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "import/prefer-default-export": 0,
+    "arrow-body-style": "off" // Added to allow class properties.
+  }
+}
