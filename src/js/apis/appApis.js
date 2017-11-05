@@ -1,4 +1,13 @@
 import axios from 'axios';
 
-export const getText = () => axios
+const getText = () => axios
   .get('api/text');
+
+export {
+  getText,
+};
+
+// For testing.
+export default {
+  getText,
+};

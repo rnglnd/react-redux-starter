@@ -72,7 +72,14 @@
     "build": "rm -rf dist && mkdir dist && NODE_ENV=production webpack --progress --profile --colors --config=webpack.config.production.js",
     "dev": "webpack-dev-server --hot --inline --progress --colors --config=webpack.config.development.js & node server.js",
     "test": "jest",
+    "precommit": "npm test && lint-staged",
     "lint": "eslint src/js/** --fix"
+  },
+  "lint-staged": {
+    "*.js": [
+      "lint",
+      "git add"
+    ]
   },
   "jest": {
     "transform": {
