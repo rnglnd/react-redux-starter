@@ -9,10 +9,14 @@ module.exports = {
     path.resolve('src/js/app.js'),
   ],
   resolve: {
+    alias: {
+      react: path.resolve(__dirname, 'node_modules', 'react'),
+      'react-dom': path.resolve(__dirname, 'node_modules', 'react-dom'),
+    },
     modules: [
-      'src/js',
+      path.resolve(__dirname, 'src/js'),
       'node_modules',
-      'src',
+      path.resolve(__dirname, 'src'),
     ],
   },
   output: {
@@ -26,21 +30,22 @@ module.exports = {
   module: {
     rules: [
       {
-        exclude: /(node_modules)/,
         test: /\.js$/,
         loader: 'babel-loader',
+        include: [
+          path.resolve(__dirname, 'src'),
+        ],
       },
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
+        enforce: 'pre',
+        exclude: /node_modules/,
         loader: 'eslint-loader',
-        exclude: /(node_modules)/,
         options: {
-          configFile: './.eslintrc',
-          emitError: true,
-          failOnError: true,
+          emitErrors: true,
+          failOnHint: true,
           failOnWarning: false,
-          formatter: require('eslint-friendly-formatter'),
-          fix: true,
+          fix: false,
         },
       },
       {
@@ -58,15 +63,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.svg(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          limit: 10000,
-          mimetype: 'image/svg+xml',
-        },
-      },
-      {
-        test: /\.(png|jpg)$/,
+        test: /\.(png|jpg|pdf|html|svg)$/,
         loader: 'url-loader',
         options: {
           prefix: 'img',
@@ -74,19 +71,16 @@ module.exports = {
           limit: 10000,
         },
       },
+      {
+        test: /\.(png|jpg|gif|html)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
+      },
     ],
   },
-  plugins: [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      filename: 'js/vendor.js',
-      minChunks(module) {
-        const context = module.context;
-
-        return context
-            && context.indexOf('node_modules') >= 0;
-      },
-    }),
-    new webpack.optimize.ModuleConcatenationPlugin(),
-  ],
 };
+
