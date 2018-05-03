@@ -3,9 +3,7 @@ import axios from 'axios';
 const getText = () => axios
   .get('api/text');
 
-export {
-  getText,
-};
+export { getText };
 
 // For testing.
 export default {

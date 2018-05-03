@@ -1,23 +1,24 @@
-const standardConfig = require('./webpack.config.base');
+const baseConfig = require('./webpack.config.base');
 const webpack = require('webpack');
 
-const devWebpackConfig = standardConfig;
-
-devWebpackConfig.output.publicPath = 'http://localhost:8088/';
-
-const devPlugins = devWebpackConfig.plugins.concat(new webpack.DefinePlugin({
-  'process.env': {
-    NODE_ENV: JSON.stringify('development'),
+module.exports = {
+  ...baseConfig,
+  mode: 'development',
+  output: {
+    ...baseConfig.output,
+    publicPath: 'http://localhost:8088/',
   },
-}));
-
-const devTools = {
   devtool: 'source-map',
   devServer: {
-    contentBase: './public/',
+    contentBase: './public/12345678',
     port: 8088,
     historyApiFallback: true,
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('development'),
+      },
+    }),
+  ],
 };
-
-module.exports = Object.assign({}, devWebpackConfig, { plugins: devPlugins }, devTools);
