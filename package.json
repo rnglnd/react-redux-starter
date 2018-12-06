@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "dependencies": {
     "axios": "0.16.1",
-    "babel-polyfill": "6.23.0",
     "history": "^4.7.2",
     "prop-types": "15.6.0",
     "react": "16.0.0",
@@ -57,7 +56,6 @@
     "path": "0.12.7",
     "postcss-loader": "2.1.4",
     "promise": "8.0.1",
-    "react-dev-utils": "5.0.1",
     "redux-mock-store": "1.5.1",
     "sass-loader": "7.0.1",
     "style-loader": "0.21.0",
@@ -70,14 +68,14 @@
   },
   "scripts": {
     "build": "rm -rf dist && mkdir dist && webpack --progress --profile --colors --mode production --config webpack.config.production.js",
-    "dev": "webpack-dev-server --hot --inline --progress --colors --mode development --config webpack.config.development.js & node server.js",
+    "start": "webpack-dev-server --hot --inline --progress --colors --mode development --config webpack.config.development.js & node server.js",
     "test": "jest",
     "precommit": "npm test && lint-staged",
-    "lint": "eslint src/js/** --fix"
+    "lint": "eslint src/** --fix"
   },
   "lint-staged": {
     "*.js": [
-      "lint",
+      "npm run lint",
       "git add"
     ]
   },
@@ -90,7 +88,8 @@
       "js"
     ],
     "modulePaths": [
-      "src/js"
-    ]
+      "src"
+    ],
+    "testURL": "http://localhost/"
   }
 }

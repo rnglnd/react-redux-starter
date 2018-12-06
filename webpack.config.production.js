@@ -5,20 +5,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   ...baseConfig,
-  mode: 'production',
   output: {
     ...baseConfig.output,
     publicPath: '',
-  },
-  optimization: {
-    ...baseConfig.optimization,
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: false,
-        parallel: true,
-        sourceMap: false,
-      }),
-    ],
   },
   module: {
     ...baseConfig.module,
@@ -27,11 +16,6 @@ module.exports = {
     }),
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
     new CopyWebpackPlugin([
       { from: './src/img', to: 'img/' },
     ]),
